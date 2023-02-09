@@ -1,6 +1,6 @@
 ---
-title: "The Office Report"
-author: "Your name"
+title: "My Office Report"
+author: "Timothy Dillon"
 date: '2023'
 output:
   html_document: default
@@ -23,22 +23,24 @@ library("ggplot2")
 # Load The Office data from this URL:
 # https://raw.githubusercontent.com/melaniewalsh/Neat-Datasets/main/TheOfficeIMDBPerEpisode.csv
 # This data is drawn from Kaggle: https://www.kaggle.com/datasets/kapastor/the-office-imdb-ratings-per-episode
-office_df <- NULL
+office_df <- read.csv("https://raw.githubusercontent.com/melaniewalsh/Neat-Datasets/main/TheOfficeIMDBPerEpisode.csv")
+office_df$AirDate<- as.Date(office_df$AirDate)
 
 # Which season of The Office was the best?
 # Calculate the average IMDB rating for each season
-rating_per_season <- NULL
+rating_per_season <- office_df%>%group_by(Season)%>%summarise(average = mean(Rating))
 
 # Now plot the average IMDB rating for each season as a scatterplot, a line plot, or both
 # Your ggplot code here
+ggplot(data = office_df) + geom_line(mapping = aes(x = AirDate, y = Rating))
 ```
 
 ```{r, echo=FALSE}
 # Find the highest IMDB rating for any episode of The Office and pull the value
-highest_rating <- NULL
+highest_rating <- office_df%>%filter(Rating == max(Rating))%>%pull(Rating)
 
 # Find the lowest IMDB rating for any episode of The Office and pull the value
-lowest_rating <- NULL
+lowest_rating <- office_df%>%filter(Rating == min(Rating))%>%pull(Rating)
 ```
 
 The highest IMDB rating for any episode of The Office is `r highest_rating`, and the lowest rating is `r lowest_rating`.

@@ -9,7 +9,7 @@ Here's a report about homeownership trends over time for different racial groups
 
 Each collaborator should make a different change -- make a line plot, add color, or hide the code.
 
-```{r}
+```{r, echo=FALSE}
 home_owner <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/home_owner.csv')
 
 # Load library
